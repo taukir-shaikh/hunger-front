@@ -17,7 +17,9 @@ const LoginPage = () => {
     setError('');
     try {
       // Replace with your backend login endpoint
-      const res = await axios.post('http://localhost:8000/api/login', form);
+      const res = await axios.post('http://127.0.0.1:8000/api/auth/login', form);
+      console.log(res);
+      
       localStorage.setItem('token', res.data.token);
       navigate('/dashboard');
     } catch (err) {
@@ -26,7 +28,8 @@ const LoginPage = () => {
   };
 
   return (
-    <Box maxW="md" mx="auto" mt={10} p={6} borderWidth={1} borderRadius="lg" boxShadow="md">
+    <Box display="flex" alignItems={'center'} justifyContent="center" height="100vh" w={'100vw'} maxW={'100vw'}>
+    <Box maxW="md" mx="auto" m={'auto'} mt={10} p={6} borderWidth={1} borderRadius="lg" boxShadow="md">
       <Heading mb={6}>Login</Heading>
       <form onSubmit={handleSubmit}>
         <VStack spacing={4} align="stretch">
@@ -37,6 +40,7 @@ const LoginPage = () => {
         </VStack>
       </form>
       <Button mt={4} variant="link" onClick={() => navigate('/register')}>Don't have an account? Register</Button>
+    </Box>
     </Box>
   );
 };

@@ -17,7 +17,7 @@ const RegistrationPage = () => {
     setError('');
     try {
       // Replace with your backend registration endpoint
-      await axios.post('http://localhost:8000/api/register', form);
+      await axios.post('http://127.0.0.1:8000/api/auth/register', form);
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');

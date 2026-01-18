@@ -7,12 +7,13 @@ const RestaurantsDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Example using a free API for restaurants (Yelp Fusion requires API key, so using a mock API here)
-    axios.get('https://random-data-api.com/api/restaurant/random_restaurant?size=12')
+    // Fetch restaurants from backend
+    axios.get('http://localhost:8000/api/v1/restaurants')
       .then(res => {
         setRestaurants(res.data || []);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, []);
 
   return (
@@ -20,11 +21,11 @@ const RestaurantsDashboard = () => {
       <Heading mb={6}>Restaurants</Heading>
       {loading ? <Spinner /> : (
         <SimpleGrid columns={[1, 2, 3]} spacing={6}>
-          {restaurants.map(restaurant => (
+          {restaurants && restaurants?.map(restaurant => (
             <Box key={restaurant.id} borderWidth={1} borderRadius="lg" overflow="hidden" p={4}>
-              <Image src={restaurant.logo} alt={restaurant.name} boxSize="200px" objectFit="cover" mx="auto" />
+              <Image src={restaurant.logo || restaurant.image_url} alt={restaurant.name} boxSize="200px" objectFit="cover" mx="auto" />
               <Text mt={2} fontWeight="bold">{restaurant.name}</Text>
-              <Text fontSize="sm">{restaurant.type}</Text>
+              <Text fontSize="sm">{restaurant.type || restaurant.category}</Text>
               <Text fontSize="sm">{restaurant.description}</Text>
             </Box>
           ))}
