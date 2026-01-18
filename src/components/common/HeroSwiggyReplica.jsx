@@ -42,7 +42,9 @@ const HeroSwiggyReplica = () => {
     <Box bg="#fc8019" minH="100vh" pb={16}>
       <Flex justify="space-between" align="center" px={{ base: 4, md: 16 }} py={6}>
         <Flex align="center">
-          <Image src="/assets/logo.png" alt="Hunger Logo" boxSize="40px" mr={2} />
+          <Box bg="#fc8019" borderRadius="md" p={1} mr={2} boxShadow="md" bgColor="white">
+            <Text color="#fc8019" fontSize="2xl" fontWeight="bold">H</Text>
+          </Box>
           <Heading color="white" size="lg" fontWeight="bold">Hunger</Heading>
         </Flex>
         <Flex align="center" gap={6} color="white" fontWeight="medium" fontSize="md">
