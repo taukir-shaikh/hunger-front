@@ -47,9 +47,8 @@ const cardData = [
 
 const HeroSwiggyReplica = () => {
   const cardWidth = useBreakpointValue({ base: '100%', md: '320px' });
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(() => !!getToken());
   useEffect(() => {
-    setIsSignedIn(!!getToken());
     // Listen for login/logout events (optional, for better UX)
     const onStorage = () => setIsSignedIn(!!getToken());
     window.addEventListener('storage', onStorage);
