@@ -1,5 +1,5 @@
 
-export const API_BASE_URL = 'https://api.example.com'; // Replace with your backend URL
+export const API_BASE_URL = 'https://localhost:8000'; // Replace with your backend URL
 
 export const ROLES = {
 	USER: 'USER',

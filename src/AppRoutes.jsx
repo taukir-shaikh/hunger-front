@@ -13,6 +13,7 @@ import RestaurantDashboard from './pages/restaurant/RestaurantDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import RoleBasedRoute from './routes/RoleBasedRoute';
 import { ROLES } from './utils/constants';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 const AppRoutes = () => (
   <Routes>
@@ -21,10 +22,12 @@ const AppRoutes = () => (
     <Route path="/auth/verify-otp" element={<VerifyOtp />} />
     <Route path="/restaurants" element={<RestaurantList />} />
     <Route path="/restaurants/:id" element={<RestaurantDetail />} />
-    <Route path="/checkout" element={<Checkout />} />
-    <Route path="/orders" element={<OrderHistory />} />
-    <Route path="/orders/:id" element={<OrderTracking />} />
-    <Route path="/profile" element={<Profile />} />
+    <Route element={<ProtectedRoute />}>
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/orders" element={<OrderHistory />} />
+      <Route path="/orders/:id" element={<OrderTracking />} />
+      <Route path="/profile" element={<Profile />} />
+    </Route>
     <Route element={<RoleBasedRoute allowedRoles={[ROLES.RESTAURANT]} />}> 
       <Route path="/restaurant/dashboard" element={<RestaurantDashboard />} />
     </Route>

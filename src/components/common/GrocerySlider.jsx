@@ -1,4 +1,4 @@
-import { Box, Heading, Flex, IconButton, Image, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Heading, Flex, IconButton, Image, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useRef } from 'react';
 
@@ -24,9 +24,11 @@ const GrocerySlider = () => {
     scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
+  const bg = useColorModeValue('white', 'gray.900');
+  const headingColor = useColorModeValue('gray.800', 'orange.200');
   return (
-    <Box bg="white" py={10}>
-      <Heading size="lg" mb={6} textAlign="center">Shop groceries on Instamart</Heading>
+    <Box bg={bg} py={10}>
+      <Heading size="lg" mb={6} textAlign="center" color={headingColor}>Shop groceries on Instamart</Heading>
       <Flex align="center" justify="center" position="relative">
         <IconButton
           icon={<ChevronLeftIcon boxSize={6} />}
@@ -35,7 +37,7 @@ const GrocerySlider = () => {
           position="absolute"
           left={0}
           zIndex={2}
-          bg="white"
+          bg={bg}
           boxShadow="md"
           display={{ base: 'none', md: 'flex' }}
         />
@@ -61,7 +63,7 @@ const GrocerySlider = () => {
           position="absolute"
           right={0}
           zIndex={2}
-          bg="white"
+          bg={bg}
           boxShadow="md"
           display={{ base: 'none', md: 'flex' }}
         />

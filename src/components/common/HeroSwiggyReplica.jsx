@@ -12,10 +12,12 @@ import {
   SimpleGrid,
   Image,
   useBreakpointValue,
+  useColorModeValue,
 } from '@chakra-ui/react';
-import { SearchIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { SearchIcon, ChevronRightIcon, SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useColorMode } from '@chakra-ui/react';
 import { getToken } from '../../utils/token';
 
 const cardData = [
@@ -47,6 +49,13 @@ const cardData = [
 
 const HeroSwiggyReplica = () => {
   const cardWidth = useBreakpointValue({ base: '100%', md: '320px' });
+  const heroBg = useColorModeValue('#fc8019', 'gray.900');
+  const cardBg = useColorModeValue('white', 'gray.800');
+  const cardText = useColorModeValue('gray.800', 'white');
+  const cardSubText = useColorModeValue('gray.500', 'gray.300');
+  const cardOffer = useColorModeValue('#fc8019', 'orange.300');
+  const headingColor = useColorModeValue('white', 'orange.200');
+  const headerTextColor = useColorModeValue('white', 'orange.200');
   const [isSignedIn, setIsSignedIn] = useState(() => !!getToken());
   useEffect(() => {
     // Listen for login/logout events (optional, for better UX)
@@ -54,27 +63,36 @@ const HeroSwiggyReplica = () => {
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
   }, []);
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <Box bg="#fc8019" minH="100vh" pb={16}>
+    <Box bg={heroBg} minH="100vh" pb={16}>
       <Flex justify="space-between" align="center" px={{ base: 4, md: 16 }} py={6}>
         <Flex align="center">
-          <Box bg="#fc8019" borderRadius="md" p={1} mr={2} boxShadow="md" bgColor="white">
-            <Text color="#fc8019" fontSize="2xl" fontWeight="bold">H</Text>
+          <Box bg={heroBg} borderRadius="md" p={1} mr={2} boxShadow="md" bgColor={useColorModeValue('white', 'gray.800')}>
+            <Text color={cardOffer} fontSize="2xl" fontWeight="bold">H</Text>
           </Box>
-          <Heading color="white" size="lg" fontWeight="bold">Hunger</Heading>
+          <Heading color={headingColor} size="lg" fontWeight="bold">Hunger</Heading>
         </Flex>
-        <Flex align="center" gap={6} color="white" fontWeight="medium" fontSize="md">
+        <Flex align="center" gap={6} color={headerTextColor} fontWeight="medium" fontSize="md">
           <Button as={RouterLink} to="/restaurants" variant="link" color="white" _hover={{ textDecoration: 'underline' }}>Restaurants</Button>
           <Button as={RouterLink} to="/checkout" variant="link" color="white" _hover={{ textDecoration: 'underline' }}>Checkout</Button>
           <Button as={RouterLink} to="/orders" variant="link" color="white" _hover={{ textDecoration: 'underline' }}>Orders</Button>
           <Button as={RouterLink} to="/profile" variant="outline" colorScheme="whiteAlpha" borderColor="white" color="white" _hover={{ bg: 'whiteAlpha.300' }}>Profile</Button>
+          <IconButton
+            icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+            onClick={toggleColorMode}
+            aria-label="Toggle color mode"
+            variant="ghost"
+            color="white"
+            _hover={{ bg: 'whiteAlpha.300' }}
+          />
           {!isSignedIn && (
             <Button as={RouterLink} to="/auth/login" bg="black" color="white" _hover={{ bg: 'gray.700' }}>Sign in</Button>
           )}
         </Flex>
       </Flex>
       <Flex direction="column" align="center" mt={10}>
-        <Heading color="white" size="2xl" textAlign="center" fontWeight="extrabold" mb={4}>
+        <Heading color={headingColor} size="2xl" textAlign="center" fontWeight="extrabold" mb={4}>
           Order food & groceries. Discover<br />best restaurants. Hunger it!
         </Heading>
         <Flex gap={4} mt={6} mb={10} w={{ base: '90%', md: 'auto' }}>
@@ -93,7 +111,7 @@ const HeroSwiggyReplica = () => {
           {cardData.map((card, idx) => (
             <Box
               key={idx}
-              bg="white"
+              bg={cardBg}
               borderRadius="2xl"
               boxShadow="lg"
               p={6}
@@ -106,9 +124,9 @@ const HeroSwiggyReplica = () => {
               position="relative"
             >
               <Box>
-                <Heading size="lg" color="gray.800" mb={1}>{card.title}</Heading>
-                <Text color="gray.500" fontWeight="medium" mb={2}>{card.subtitle}</Text>
-                <Text color="#fc8019" fontWeight="bold" mb={4}>{card.offer}</Text>
+                <Heading size="lg" color={cardText} mb={1}>{card.title}</Heading>
+                <Text color={cardSubText} fontWeight="medium" mb={2}>{card.subtitle}</Text>
+                <Text color={cardOffer} fontWeight="bold" mb={4}>{card.offer}</Text>
               </Box>
               <Image src={card.img} alt={card.title} borderRadius="xl" boxSize="100px" mb={4} alignSelf="center" />
               <Button

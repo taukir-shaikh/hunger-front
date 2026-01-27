@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Box, Heading, Flex, Text, IconButton, Image, Spinner, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Heading, Flex, Text, IconButton, Image, Spinner, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
@@ -30,9 +30,12 @@ const MealCategorySlider = () => {
     scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
+  const bg = useColorModeValue('white', 'gray.900');
+  const headingColor = useColorModeValue('gray.800', 'orange.200');
+  const textColor = useColorModeValue('gray.800', 'gray.100');
   return (
-    <Box bg="white" py={10}>
-      <Heading size="lg" mb={6} textAlign="center">Order our best food options</Heading>
+    <Box bg={bg} py={10}>
+      <Heading size="lg" mb={6} textAlign="center" color={headingColor}>Order our best food options</Heading>
       {loading ? (
         <Flex justify="center" align="center" minH="120px"><Spinner size="xl" /></Flex>
       ) : (
@@ -62,7 +65,7 @@ const MealCategorySlider = () => {
             {categories.map((cat) => (
               <Flex key={cat.idCategory} direction="column" align="center" minW="120px">
                 <Image src={cat.strCategoryThumb} alt={cat.strCategory} boxSize="80px" mb={2} />
-                <Text fontWeight="medium" fontSize="lg">{cat.strCategory}</Text>
+                <Text fontWeight="medium" fontSize="lg" color={textColor}>{cat.strCategory}</Text>
               </Flex>
             ))}
           </Flex>

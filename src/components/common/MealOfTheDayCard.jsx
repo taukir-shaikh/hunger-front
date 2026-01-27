@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Heading, Text, Image, Spinner, Flex, Badge, Button } from '@chakra-ui/react';
+import { Box, Heading, Text, Image, Spinner, Flex, Badge, Button, useColorModeValue } from '@chakra-ui/react';
 import axios from 'axios';
 
 const RAPIDAPI_KEY = 'd006dcf6c2msh5ea6a453c63ff40p14ec09jsne67daba38120';
@@ -28,9 +28,12 @@ const MealOfTheDayCard = () => {
     fetchMeal();
   }, []);
 
+  const bg = useColorModeValue('white', 'gray.900');
+  const headingColor = useColorModeValue('brand.500', 'orange.200');
+  const textColor = useColorModeValue('gray.600', 'gray.200');
   return (
-    <Box bg="white" borderRadius="2xl" boxShadow="lg" p={8} maxW="400px" mx="auto" mt={10}>
-      <Heading size="lg" mb={4} color="brand.500" textAlign="center">MEAL OF THE DAY</Heading>
+    <Box bg={bg} borderRadius="2xl" boxShadow="lg" p={8} maxW="400px" mx="auto" mt={10}>
+      <Heading size="lg" mb={4} color={headingColor} textAlign="center">MEAL OF THE DAY</Heading>
       {loading ? (
         <Flex justify="center" align="center" minH="200px"><Spinner size="xl" /></Flex>
       ) : meal ? (
@@ -39,7 +42,7 @@ const MealOfTheDayCard = () => {
           <Heading size="md" mb={2} textAlign="center">{meal.strMeal}</Heading>
           <Text color="gray.500" mb={2} textAlign="center">{meal.strArea} • {meal.strCategory}</Text>
           <Badge colorScheme="green" mb={2} display="block" mx="auto" w="fit-content">{meal.strTags ? meal.strTags : 'No tags'}</Badge>
-          <Text fontSize="sm" color="gray.600" noOfLines={3} mb={4} textAlign="center">{meal.strInstructions}</Text>
+          <Text fontSize="sm" color={textColor} noOfLines={3} mb={4} textAlign="center">{meal.strInstructions}</Text>
           <Button as="a" href={meal.strSource || meal.strYoutube} target="_blank" colorScheme="orange" w="full">View Recipe</Button>
         </>
       ) : (

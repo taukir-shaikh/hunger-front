@@ -1,4 +1,4 @@
-import { Box, Flex, Text, SimpleGrid, Link, Divider, Select, IconButton } from '@chakra-ui/react';
+import { Box, Flex, Text, SimpleGrid, Link, Divider, Select, IconButton, useColorModeValue } from '@chakra-ui/react';
 import { FaLinkedin, FaInstagram, FaFacebook, FaPinterest, FaTwitter } from 'react-icons/fa';
 
 const companyLinks = [
@@ -16,56 +16,64 @@ const socialLinks = [
   { icon: FaTwitter, label: 'Twitter' },
 ];
 
-const HungerFooter = () => (
-  <Box bg="#f6f6f6" color="gray.700" pt={16} pb={8} mt={16}>
+export const HungerFooter = () => {
+  const bg = useColorModeValue('#f6f6f6', 'gray.900');
+  const textColor = useColorModeValue('gray.700', 'gray.200');
+  const headingColor = useColorModeValue('gray.800', 'orange.200');
+  const iconBg = useColorModeValue('#fc8019', 'orange.400');
+  const iconText = useColorModeValue('white', 'gray.900');
+  return (
+    <>
+    <Box bg={bg} color={textColor} pt={16} pb={8} mt={16}>
     <Flex px={{ base: 4, md: 16 }} justify="space-between" align="flex-start" wrap="wrap">
       <Box minW="180px" mb={8}>
         <Flex align="center" mb={2}>
-          <Box bg="#fc8019" borderRadius="md" p={1} mr={2}>
-            <Text fontWeight="bold" color="white" fontSize="2xl">H</Text>
+          <Box bg={iconBg} borderRadius="md" p={1} mr={2}>
+            <Text fontWeight="bold" color={iconText} fontSize="2xl">H</Text>
           </Box>
-          <Text fontWeight="bold" fontSize="xl">Hunger</Text>
+          <Text fontWeight="bold" fontSize="xl" color={headingColor}>Hunger</Text>
         </Flex>
         <Text fontSize="sm" color="gray.500">© {new Date().getFullYear()} Hunger Limited</Text>
       </Box>
       <SimpleGrid columns={{ base: 2, md: 5 }} spacing={8} flex="1">
         <Box>
-          <Text fontWeight="bold" mb={2}>Company</Text>
+          <Text fontWeight="bold" mb={2} color={headingColor}>Company</Text>
           {companyLinks.map((l, i) => <Link key={i} href="#" display="block" mb={1}>{l}</Link>)}
         </Box>
         <Box>
-          <Text fontWeight="bold" mb={2}>Contact us</Text>
+          <Text fontWeight="bold" mb={2} color={headingColor}>Contact us</Text>
           {contactLinks.map((l, i) => <Link key={i} href="#" display="block" mb={1}>{l}</Link>)}
         </Box>
         <Box>
-          <Text fontWeight="bold" mb={2}>Available in:</Text>
+          <Text fontWeight="bold" mb={2} color={headingColor}>Available in:</Text>
           {availableCities.map((c, i) => <Text key={i} mb={1}>{c}</Text>)}
           <Select size="sm" mt={2} placeholder="685 cities" maxW="120px" />
         </Box>
         <Box>
-          <Text fontWeight="bold" mb={2}>Legal</Text>
+          <Text fontWeight="bold" mb={2} color={headingColor}>Legal</Text>
           {legalLinks.map((l, i) => <Link key={i} href="#" display="block" mb={1}>{l}</Link>)}
         </Box>
         <Box>
-          <Text fontWeight="bold" mb={2}>Life at Hunger</Text>
+          <Text fontWeight="bold" mb={2} color={headingColor}>Life at Hunger</Text>
           {lifeLinks.map((l, i) => <Link key={i} href="#" display="block" mb={1}>{l}</Link>)}
           <Flex gap={2} mt={2}>
             {socialLinks.map((s, i) => (
-              <IconButton key={i} icon={<s.icon />} aria-label={s.label} size="sm" variant="ghost" />
+              <IconButton key={i} icon={<s.icon />} aria-label={s.label} size="sm" variant="ghost" color={iconText} />
             ))}
           </Flex>
         </Box>
       </SimpleGrid>
     </Flex>
-    <Divider my={8} />
+    <Divider my={8} borderColor={useColorModeValue('gray.300', 'gray.700')} />
     <Flex direction="column" align="center" gap={2}>
       <Text fontWeight="semibold">For better experience, download the Hunger app now</Text>
       <Flex gap={4}>
         <Box as="img" src="/assets/appstore.png" alt="App Store" h="40px" />
         <Box as="img" src="/assets/playstore.png" alt="Google Play" h="40px" />
       </Flex>
+
     </Flex>
   </Box>
-);
-
-export default HungerFooter;
+  </>
+)
+};
