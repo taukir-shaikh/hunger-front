@@ -1,0 +1,9 @@
+
+body {
+	background: #f7fafc;
+}
+
+input::placeholder, textarea::placeholder {
+	color: #718096;
+	opacity: 1;
+}

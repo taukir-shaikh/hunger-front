@@ -14,6 +14,9 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { SearchIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { Link as RouterLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getToken } from '../../utils/token';
 
 const cardData = [
   {
@@ -21,23 +24,37 @@ const cardData = [
     subtitle: 'FROM RESTAURANTS',
     offer: 'UPTO 60% OFF',
     img: '/assets/food1.jpg',
+    link: '/restaurants',
+    button: 'Order Now',
   },
   {
     title: 'INSTANTMART',
     subtitle: 'INSTANT GROCERY',
     offer: 'UPTO 60% OFF',
     img: '/assets/food2.jpg',
+    link: '/checkout',
+    button: 'Shop Groceries',
   },
   {
     title: 'DINEOUT',
     subtitle: 'EAT OUT & SAVE MORE',
     offer: 'UPTO 50% OFF',
     img: '/assets/food3.jpg',
+    link: '/orders',
+    button: 'View Orders',
   },
 ];
 
 const HeroSwiggyReplica = () => {
   const cardWidth = useBreakpointValue({ base: '100%', md: '320px' });
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  useEffect(() => {
+    setIsSignedIn(!!getToken());
+    // Listen for login/logout events (optional, for better UX)
+    const onStorage = () => setIsSignedIn(!!getToken());
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
   return (
     <Box bg="#fc8019" minH="100vh" pb={16}>
       <Flex justify="space-between" align="center" px={{ base: 4, md: 16 }} py={6}>
@@ -48,10 +65,13 @@ const HeroSwiggyReplica = () => {
           <Heading color="white" size="lg" fontWeight="bold">Hunger</Heading>
         </Flex>
         <Flex align="center" gap={6} color="white" fontWeight="medium" fontSize="md">
-          <Text cursor="pointer">Hunger Corporate</Text>
-          <Text cursor="pointer">Partner with us</Text>
-          <Button variant="outline" colorScheme="whiteAlpha" borderColor="white" color="white" _hover={{ bg: 'whiteAlpha.300' }}>Get the App</Button>
-          <Button bg="black" color="white" _hover={{ bg: 'gray.700' }}>Sign in</Button>
+          <Button as={RouterLink} to="/restaurants" variant="link" color="white" _hover={{ textDecoration: 'underline' }}>Restaurants</Button>
+          <Button as={RouterLink} to="/checkout" variant="link" color="white" _hover={{ textDecoration: 'underline' }}>Checkout</Button>
+          <Button as={RouterLink} to="/orders" variant="link" color="white" _hover={{ textDecoration: 'underline' }}>Orders</Button>
+          <Button as={RouterLink} to="/profile" variant="outline" colorScheme="whiteAlpha" borderColor="white" color="white" _hover={{ bg: 'whiteAlpha.300' }}>Profile</Button>
+          {!isSignedIn && (
+            <Button as={RouterLink} to="/auth/login" bg="black" color="white" _hover={{ bg: 'gray.700' }}>Sign in</Button>
+          )}
         </Flex>
       </Flex>
       <Flex direction="column" align="center" mt={10}>
@@ -92,8 +112,18 @@ const HeroSwiggyReplica = () => {
                 <Text color="#fc8019" fontWeight="bold" mb={4}>{card.offer}</Text>
               </Box>
               <Image src={card.img} alt={card.title} borderRadius="xl" boxSize="100px" mb={4} alignSelf="center" />
-              <Button rightIcon={<ChevronRightIcon />} colorScheme="orange" variant="ghost" position="absolute" bottom={4} right={4}>
-                <span style={{ fontWeight: 700 }}> </span>
+              <Button
+                as={RouterLink}
+                to={card.link}
+                rightIcon={<ChevronRightIcon />}
+                colorScheme="orange"
+                variant="solid"
+                position="absolute"
+                bottom={4}
+                right={4}
+                fontWeight={700}
+              >
+                {card.button}
               </Button>
             </Box>
           ))}
