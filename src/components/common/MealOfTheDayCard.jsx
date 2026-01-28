@@ -32,7 +32,7 @@ const MealOfTheDayCard = () => {
   const headingColor = useColorModeValue('brand.500', 'orange.200');
   const textColor = useColorModeValue('gray.600', 'gray.200');
   return (
-    <Box bg={bg} borderRadius="2xl" boxShadow="lg" p={8} maxW="400px" mx="auto" mt={10}>
+    <Box my={4} bg={bg} borderRadius="2xl" boxShadow="lg" p={8} maxW="400px" mx="auto" mt={10}>
       <Heading size="lg" mb={4} color={headingColor} textAlign="center">MEAL OF THE DAY</Heading>
       {loading ? (
         <Flex justify="center" align="center" minH="200px"><Spinner size="xl" /></Flex>

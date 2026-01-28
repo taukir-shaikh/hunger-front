@@ -3,14 +3,14 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useRef } from 'react';
 
 const groceries = [
-  { img: '/assets/grocery1.png' },
-  { img: '/assets/grocery2.png' },
-  { img: '/assets/grocery3.png' },
-  { img: '/assets/grocery4.png' },
-  { img: '/assets/grocery5.png' },
-  { img: '/assets/grocery6.png' },
-  { img: '/assets/grocery7.png' },
-  { img: '/assets/grocery8.png' },
+  { img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80', name: 'Vegetables' },
+  { img: 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80', name: 'Fruits' },
+  { img: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80', name: 'Dairy' },
+  { img: 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80', name: 'Bakery' },
+  { img: 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=400&q=80', name: 'Snacks' },
+  { img: 'https://images.unsplash.com/photo-1506089676908-3592f7389d4d?auto=format&fit=crop&w=400&q=80', name: 'Beverages' },
+  { img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80', name: 'Meat' },
+  { img: 'https://images.unsplash.com/photo-1505250469679-203ad9ced0cb?auto=format&fit=crop&w=400&q=80', name: 'Seafood' },
 ];
 
 const GrocerySlider = () => {
@@ -53,7 +53,10 @@ const GrocerySlider = () => {
           }}
         >
           {groceries.map((item, idx) => (
-            <Image key={idx} src={item.img} alt="grocery" boxSize="120px" borderRadius="lg" />
+            <Box key={idx} textAlign="center">
+              <Image src={item.img} alt={item.name} boxSize="120px" borderRadius="lg" mb={2} />
+              <span style={{ fontSize: '0.9em' }}>{item.name}</span>
+            </Box>
           ))}
         </Flex>
         <IconButton
